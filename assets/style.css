@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body {
+    background: theme('colors.blue');
+    font-family: "IKEA Sans";
+    height: 100%;
+    color: white;
+}
+
+.diagonal-box {
+	background-image: linear-gradient(45deg, theme('colors.ikea-yellow') 60%, theme('colors.yellow-darker'));
+	transform: skewY(-9deg);
+    position: relative; 
+    margin-bottom: 10%;
+}
+
+.diagonal-box .ikea-bg {
+    background-image: url('/ikea.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    opacity: 0.1;
+    top: 0;
+    right:0;
+    width: 100%;
+    height: 100%;
+}
+
+.fill-left-corner {
+    position: absolute;
+    background-color: theme('colors.ikea-yellow');
+    top: 0;
+    left: 0;
+    height: 25%;
+    width: 100%;
+}
+
+.content {
+	max-width: 50em;
+	transform: skewY(9deg);
+    color: theme('colors.blue');
+}
