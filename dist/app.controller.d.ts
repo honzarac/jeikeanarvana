@@ -8,5 +8,6 @@ export declare class AppController {
         current: number;
         maxCapacity: number;
         coloredPieces: number;
+        capacityHistory: any[];
     }>;
 }

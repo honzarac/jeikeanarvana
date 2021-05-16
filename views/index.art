@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <title>Je IKEA narvaná?</title>
-    <link href="//db.onlinewebfonts.com/c/eb170287d0e44284a3292879844309b2?family=IKEA+Sans" rel="stylesheet" type="text/css"/>
+    <link href="https://db.onlinewebfonts.com/c/eb170287d0e44284a3292879844309b2?family=IKEA+Sans" rel="stylesheet" type="text/css"/>
     <link href="/style.css" rel="stylesheet" type="text/css"/>
   </head>
   <body>
@@ -11,7 +11,7 @@
     <div class="fill-left-corner"> </div>
     <div class="diagonal-box flex">
       <div class="ikea-bg"> </div>
-      <div class="text-4xl md:text-6xl self-center content pl-12 text-blue">JE IKEA<br>NARVANÁ?</div>
+      <div class="text-4xl md:text-6xl self-center content pl-12 text-blue">JE IKEA V BRNĚ<br>NARVANÁ?</div>
     </div>
 
     <div class="flex justify-center mb-24">
@@ -44,7 +44,7 @@
       </div>
     </div>
 
-    <div class="flex justify-center my-36">
+    <div class="flex justify-center mt-36 mb-12">
         <div class="text-center text-3xl">
             Za posledních 5 hodin...
         </div>
@@ -53,27 +53,30 @@
     <div class="flex justify-center mt-5">
         <div class="transform min-w-75 lg:min-w-50">
             <div class="p-12">
+                <div class="grid grid-cols-{{capacityHistory.length}} w-full gap-x-4 items-end">
+                    <% for(var i = capacityHistory.length-1; i >= 0; i--){ %>
+                        <div class="text-center text-yellow-400 h-6">ø {{capacityHistory[i].avg}}</div>
+                    <% } %>
+                </div>
                 <div class="flex justify-center items-end">
-                    <div class="grid grid-cols-5 w-full gap-x-4 h-56 items-end">
-                        <div class="bg-red-500 rounded-lg h-1/6 w-full"> </div>
-                        <div class="bg-red-500 rounded-lg h-full w-full"> </div>
-                        <div class="bg-red-500 rounded-lg h-2/6 w-full"> </div>
-                        <div class="bg-red-500 rounded-lg h-1/6 w-full"> </div>
-                        <div class="bg-red-500 rounded-lg h-4/6 w-full"> </div>
+                    <div class="grid grid-cols-{{capacityHistory.length}} w-full gap-x-4 h-80 items-end">
+                        <% for(var i = capacityHistory.length-1; i >= 0; i--){ %>
+                            <div class="bg-red-500 rounded-lg w-full" style="height: <%= (capacityHistory[i].avg/maxCapacity)*100 %>%"> </div>
+                        <% } %>
                     </div>
                 </div>
                 <div class="flex justify-center">
-                    <div class="grid grid-cols-5 w-full h-96 text-center">
-                        <div class="p-4 text-xl">15h</div>
-                        <div class="p-4 text-xl">16h</div>
-                        <div class="p-4 text-xl">17h</div>
-                        <div class="p-4 text-xl">18h</div>
-                        <div class="p-4 text-xl">19h</div>
+                    <div class="grid grid-cols-{{capacityHistory.length}} w-full text-center">
+                        <% for(i = capacityHistory.length-1; i >= 0; i--){ %>
+                            <div class="p-4 text-xl">{{capacityHistory[i].date.match(/(_)([0-9]+)/)[2]}}h</div>
+                        <% } %>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+  <div class="text-center p-12">© Honza Raclavský 2021</div>
 
   </body>
 </html>

@@ -8,7 +8,10 @@ export class CronService {
 
     private readonly logger = new Logger(CronService.name);
 
-    @Cron('30 * 9-21 * * *')
+    @Cron('30 * 9-20 * * *', {
+        name: 'scrapeCurrentIkeaCapacity',
+        timeZone: 'Europe/Prague',
+    })
     async handleCron() {
         this.logger.debug('scraping current capacity...')
         const currentCapacity = await this.ikeaCapacityService.scrapeCurrentCapacity()

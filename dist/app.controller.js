@@ -21,10 +21,11 @@ let AppController = class AppController {
     async root() {
         const statesDescriptions = {
             'low': 'nikdo tam není, upaluj pro novou POKAL skleničku',
-            'normal': 'ještě to ujde',
+            'normal': 'ale ještě to ujde',
             'high': 'ani tam nechoď, je tam kozy moc lidí'
         };
-        const lastCapacityLog = await typeorm_1.getRepository(capacitylog_entity_1.CapacityLog).findOne({ order: { time: 'DESC' } });
+        const capacityLogRepository = typeorm_1.getRepository(capacitylog_entity_1.CapacityLog);
+        const lastCapacityLog = await capacityLogRepository.findOne({ order: { time: 'DESC' } });
         const maxCapacity = 1200;
         const current = lastCapacityLog.capacity;
         let currentStateDescription = '';
@@ -38,12 +39,22 @@ let AppController = class AppController {
             currentStateDescription = statesDescriptions['high'];
         }
         let coloredPieces = Math.round((current / maxCapacity) * 9);
+        const capacityHistory = await typeorm_1.getConnection()
+            .createQueryBuilder()
+            .from(capacitylog_entity_1.CapacityLog, 'capacity_log')
+            .select('to_char(time, \'YY-MM-DD_HH24\') as date, round(avg(capacity)) as avg, max(capacity) as max, min(capacity) as min')
+            .where('DATE(time)=CURRENT_DATE')
+            .groupBy('to_char(time, \'YY-MM-DD_HH24\')')
+            .orderBy('to_char(time, \'YY-MM-DD_HH24\')', 'DESC')
+            .limit(5)
+            .getRawMany();
         return {
             isFullDescription: current > 600 ? 'ANO' : 'NE',
             currentStateDescription: currentStateDescription,
             current: current,
             maxCapacity: maxCapacity,
-            coloredPieces: coloredPieces
+            coloredPieces: coloredPieces,
+            capacityHistory: capacityHistory
         };
     }
 };

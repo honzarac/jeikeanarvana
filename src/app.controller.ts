@@ -1,6 +1,6 @@
 import { Controller, Get, Render } from '@nestjs/common';
 import { AppService } from './app.service';
-import {getRepository} from "typeorm";
+import {getConnection, getRepository} from "typeorm";
 import {CapacityLog} from "./CapacityLog/capacitylog.entity";
 
 @Controller()
@@ -12,11 +12,12 @@ export class AppController {
   async root() {
     const statesDescriptions = {
       'low': 'nikdo tam není, upaluj pro novou POKAL skleničku',
-      'normal': 'ještě to ujde',
+      'normal': 'ale ještě to ujde',
       'high': 'ani tam nechoď, je tam kozy moc lidí'
     };
 
-    const lastCapacityLog = await getRepository(CapacityLog).findOne({ order: { time: 'DESC' }})
+    const capacityLogRepository = getRepository(CapacityLog)
+    const lastCapacityLog = await capacityLogRepository.findOne({ order: { time: 'DESC' }})
 
     const maxCapacity = 1200
     const current = lastCapacityLog.capacity
@@ -28,12 +29,23 @@ export class AppController {
 
     let coloredPieces = Math.round((current/maxCapacity)*9);
 
+    const capacityHistory = await getConnection()
+        .createQueryBuilder()
+        .from(CapacityLog, 'capacity_log')
+        .select('to_char(time, \'YY-MM-DD_HH24\') as date, round(avg(capacity)) as avg, max(capacity) as max, min(capacity) as min')
+        .where('DATE(time)=CURRENT_DATE')
+        .groupBy('to_char(time, \'YY-MM-DD_HH24\')')
+        .orderBy('to_char(time, \'YY-MM-DD_HH24\')', 'DESC')
+        .limit(5)
+        .getRawMany();
+
     return {
       isFullDescription: current > 600 ? 'ANO' : 'NE',
       currentStateDescription: currentStateDescription,
       current: current,
       maxCapacity: maxCapacity,
-      coloredPieces: coloredPieces
+      coloredPieces: coloredPieces,
+      capacityHistory: capacityHistory
     }
   }
 }

@@ -26,7 +26,10 @@ let CronService = CronService_1 = class CronService {
     }
 };
 __decorate([
-    schedule_1.Cron('30 * * * * *'),
+    schedule_1.Cron('30 * 9-20 * * *', {
+        name: 'scrapeCurrentIkeaCapacity',
+        timeZone: 'Europe/Prague',
+    }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
