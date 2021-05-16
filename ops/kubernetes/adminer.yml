@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: adminer-replicaset
+  labels:
+    app: adminer-replicaset
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: adminer-replicaset
+  template:
+    metadata:
+      labels:
+        app: adminer-replicaset
+        service: adminer-service
+    spec:
+      containers:
+        - name: adminer
+          image: adminer:latest
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              memory: 20Mi
+              cpu: 30m
+            limits:
+              memory: 50Mi
+              cpu: 30m
+      imagePullSecrets:
+        - name: dockerhubcred
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: adminer-service
+spec:
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    service: adminer-service
+
+---
+
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: adminer-ingress-rule
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    certResolver: letsencrypt
+    domains:
+      - main: adminer.k8s.raclavsky.cz
+  routes:
+    - match: Host(`adminer.k8s.raclavsky.cz`)
+      kind: Rule
+      services:
+        - name: adminer-service
+          port: 80
+          scheme: http

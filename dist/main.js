@@ -5,7 +5,9 @@ const app_module_1 = require("./app.module");
 const path_1 = require("path");
 const onca_1 = require("onca");
 async function bootstrap() {
-    const app = await core_1.NestFactory.create(app_module_1.AppModule);
+    const app = await core_1.NestFactory.create(app_module_1.AppModule, {
+        logger: ['log', 'debug', 'error', 'verbose', 'warn']
+    });
     app.useStaticAssets(path_1.join(__dirname, '..', 'public'));
     app.setBaseViewsDir(path_1.join(__dirname, '..', 'views'));
     app.setViewEngine('art');

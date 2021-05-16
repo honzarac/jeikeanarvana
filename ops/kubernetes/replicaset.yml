@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: ikea-replicaset
+  labels:
+    app: ikea-replicaset
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ikea-replicaset
+  template:
+    metadata:
+      labels:
+        app: ikea-replicaset
+        service: ikea-service
+    spec:
+      containers:
+        - name: ikea
+          image: voxfpd/ikea:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: DB_HOST
+              value: ikea-postgres-postgresql.ikea.svc.cluster.local
+            - name: DB_USER
+              value: postgres
+            - name: DB_PASS
+              value: secretPass666
+            - name: DB_NAME
+              value: ikea
+          resources:
+            requests:
+              memory: 20Mi
+              cpu: 30m
+            limits:
+              memory: 50Mi
+              cpu: 30m
+      imagePullSecrets:
+        - name: dockerhubcred

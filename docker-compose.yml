@@ -3,7 +3,7 @@ version: '2.1'
 services:
   app:
     container_name: ikea_app
-    image: node:15
+    build: .
     working_dir: /home/node/app
     volumes:
       - .:/home/node/app
@@ -13,8 +13,9 @@ services:
       - db
     links:
       - db
-    command: "npx nest start -w"
+    entrypoint: "npx nest start -w"
     environment:
+      DB_HOST: db
       DB_NAME: ikea-dev
       DB_USER: ikea
       DB_PASS: pass

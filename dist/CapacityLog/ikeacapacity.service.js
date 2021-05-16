@@ -12,6 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.IkeaCapacityService = void 0;
 const common_1 = require("@nestjs/common");
 const operators_1 = require("rxjs/operators");
+const typeorm_1 = require("typeorm");
+const capacitylog_entity_1 = require("./capacitylog.entity");
 let IkeaCapacityService = class IkeaCapacityService {
     constructor(httpService) {
         this.httpService = httpService;
@@ -21,6 +23,10 @@ let IkeaCapacityService = class IkeaCapacityService {
         let response = await this.getIkeaCapacityResponse();
         let matches = response.match(/<div class="small-box-number">([0-9]+)<\/div>/g);
         let capacity = matches.map((string) => parseInt(string.replace(/<\/?div[- ="A-Z0-9]*>/gi, '')));
+        const capacityLogRepository = typeorm_1.getRepository(capacitylog_entity_1.CapacityLog);
+        let capacityLog = new capacitylog_entity_1.CapacityLog;
+        capacityLog.capacity = capacity[0];
+        await capacityLogRepository.insert(capacityLog);
         return capacity[0];
     }
     getIkeaCapacityResponse() {

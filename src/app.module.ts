@@ -5,16 +5,18 @@ import {TypeOrmModule} from "@nestjs/typeorm";
 import {WatcherController} from "./watcher.controller";
 import {CapacityLog} from "./CapacityLog/capacitylog.entity";
 import {IkeaCapacityService} from "./CapacityLog/ikeacapacity.service";
+import {ScheduleModule} from "@nestjs/schedule";
+import {CronService} from "./cron.service";
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'db',
+      host: process.env.DB_HOST,
       port: 5432,
-      username: 'ikea',
-      password: 'pass',
-      database: 'ikea-dev',
+      username: process.env.DB_USER,
+      password: process.env.DB_PASS,
+      database: process.env.DB_NAME,
       entities: [CapacityLog],
       synchronize: true,
     }),
@@ -22,8 +24,9 @@ import {IkeaCapacityService} from "./CapacityLog/ikeacapacity.service";
       timeout: 5000,
       maxRedirects: 5,
     }),
+    ScheduleModule.forRoot()
   ],
   controllers: [AppController, WatcherController],
-  providers: [AppService, IkeaCapacityService],
+  providers: [AppService, IkeaCapacityService, CronService],
 })
 export class AppModule {}

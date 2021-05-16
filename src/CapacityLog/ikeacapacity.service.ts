@@ -1,5 +1,7 @@
 import {HttpService, Injectable} from '@nestjs/common';
 import {map} from "rxjs/operators";
+import {getRepository} from "typeorm";
+import {CapacityLog} from "./capacitylog.entity";
 
 @Injectable()
 export class IkeaCapacityService {
@@ -12,6 +14,12 @@ export class IkeaCapacityService {
 
     let matches = response.match(/<div class="small-box-number">([0-9]+)<\/div>/g);
     let capacity = matches.map((string) => parseInt(string.replace(/<\/?div[- ="A-Z0-9]*>/gi, '')));
+
+    const capacityLogRepository = getRepository(CapacityLog);
+    let capacityLog = new CapacityLog;
+    capacityLog.capacity = capacity[0];
+    await capacityLogRepository.insert(capacityLog);
+
     return capacity[0];
   }
 

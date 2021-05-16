@@ -12,6 +12,7 @@ module.exports = {
       '50': '50%',
     },
     minWidth: {
+      '50': '50%',
       '75': '75%',
     },
     extend: {

@@ -9,15 +9,9 @@ export class WatcherController {
 
   @Get()
   async root() {
-
-    const capacityLogRepository = getRepository(CapacityLog);
-    let capacityLog = new CapacityLog;
-    capacityLog.capacity = await this.ikeaCapacityService.scrapeCurrentCapacity();
-    await capacityLogRepository.insert(capacityLog);
-
     return {
       status: "ok",
-      capacity: capacityLog.capacity
+      capacity: await this.ikeaCapacityService.scrapeCurrentCapacity()
     }
   }
 }

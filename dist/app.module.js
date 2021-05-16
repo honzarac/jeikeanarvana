@@ -14,6 +14,8 @@ const typeorm_1 = require("@nestjs/typeorm");
 const watcher_controller_1 = require("./watcher.controller");
 const capacitylog_entity_1 = require("./CapacityLog/capacitylog.entity");
 const ikeacapacity_service_1 = require("./CapacityLog/ikeacapacity.service");
+const schedule_1 = require("@nestjs/schedule");
+const cron_service_1 = require("./cron.service");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -21,11 +23,11 @@ AppModule = __decorate([
         imports: [
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'postgres',
-                host: 'db',
+                host: process.env.DB_HOST,
                 port: 5432,
-                username: 'ikea',
-                password: 'pass',
-                database: 'ikea-dev',
+                username: process.env.DB_USER,
+                password: process.env.DB_PASS,
+                database: process.env.DB_NAME,
                 entities: [capacitylog_entity_1.CapacityLog],
                 synchronize: true,
             }),
@@ -33,9 +35,10 @@ AppModule = __decorate([
                 timeout: 5000,
                 maxRedirects: 5,
             }),
+            schedule_1.ScheduleModule.forRoot()
         ],
         controllers: [app_controller_1.AppController, watcher_controller_1.WatcherController],
-        providers: [app_service_1.AppService, ikeacapacity_service_1.IkeaCapacityService],
+        providers: [app_service_1.AppService, ikeacapacity_service_1.IkeaCapacityService, cron_service_1.CronService],
     })
 ], AppModule);
 exports.AppModule = AppModule;
