@@ -3,10 +3,14 @@
 @tailwind utilities;
 
 html, body {
-    background: theme('colors.blue');
     font-family: "IKEA Sans";
     height: 100%;
     color: white;
+    background-color: #0057AD;
+    opacity: 1;
+    background-image:  radial-gradient(rgba(250, 218, 12, 0.2) 1.05px, transparent 1.05px), radial-gradient(rgba(250, 218, 12, 0.2) 1.05px, #0057AD 1.05px);
+    background-size: 42px 42px;
+    background-position: 0 0,21px 21px;
 }
 
 .diagonal-box {

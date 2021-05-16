@@ -12,27 +12,36 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppController = void 0;
 const common_1 = require("@nestjs/common");
 const app_service_1 = require("./app.service");
+const typeorm_1 = require("typeorm");
+const capacitylog_entity_1 = require("./CapacityLog/capacitylog.entity");
 let AppController = class AppController {
     constructor(appService) {
         this.appService = appService;
     }
-    root() {
+    async root() {
         const statesDescriptions = {
-            'less': "je prázdná, jak ",
-            '24': "pohodinda",
-            '36': "pohodinda",
-            '48': "pohodinda",
-            '60': "pohodinda",
-            '72': "pohodinda",
-            '84': "je tam kozy moc lidí",
-            '100': "ja"
+            'low': 'nikdo tam není, upaluj pro novou POKAL skleničku',
+            'normal': 'ještě to ujde',
+            'high': 'ani tam nechoď, je tam kozy moc lidí'
         };
+        const lastCapacityLog = await typeorm_1.getRepository(capacitylog_entity_1.CapacityLog).findOne({ order: { time: 'DESC' } });
         const capacity = 1200;
-        const current = 1100;
+        const current = lastCapacityLog.capacity;
+        let currentStateDescription = '';
+        if (current < 400) {
+            currentStateDescription = statesDescriptions['low'];
+        }
+        else if (current < 800) {
+            currentStateDescription = statesDescriptions['normal'];
+        }
+        else {
+            currentStateDescription = statesDescriptions['high'];
+        }
         let progressColors = ['green', 'green', 'green', 'yellow', 'yellow', 'yellow', 'red', 'red', 'red'];
         progressColors = progressColors.slice(0, Math.round((current / capacity) * 9));
         return {
-            statesDescriptions: statesDescriptions,
+            isFullDescription: current > 600 ? 'ANO' : 'NE',
+            currentStateDescription: currentStateDescription,
             current: current,
             progressColors: progressColors
         };
@@ -43,7 +52,7 @@ __decorate([
     common_1.Render('index'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], AppController.prototype, "root", null);
 AppController = __decorate([
     common_1.Controller(),

@@ -1,5 +1,7 @@
 import { Controller, Get, Render } from '@nestjs/common';
 import { AppService } from './app.service';
+import {getRepository} from "typeorm";
+import {CapacityLog} from "./CapacityLog/capacitylog.entity";
 
 @Controller()
 export class AppController {
@@ -7,26 +9,29 @@ export class AppController {
 
   @Get()
   @Render('index')
-  root() {
+  async root() {
     const statesDescriptions = {
-      'less': "je prázdná, jak ",
-      '24': "pohodinda",
-      '36': "pohodinda",
-      '48': "pohodinda",
-      '60': "pohodinda",
-      '72': "pohodinda",
-      '84': "je tam kozy moc lidí",
-      '100': "ja"
+      'low': 'nikdo tam není, upaluj pro novou POKAL skleničku',
+      'normal': 'ještě to ujde',
+      'high': 'ani tam nechoď, je tam kozy moc lidí'
     };
 
+    const lastCapacityLog = await getRepository(CapacityLog).findOne({ order: { time: 'DESC' }})
+
     const capacity = 1200
-    const current = 1100
+    const current = lastCapacityLog.capacity
+
+    let currentStateDescription = '';
+    if (current < 400) { currentStateDescription = statesDescriptions['low']; }
+    else if (current < 800) { currentStateDescription = statesDescriptions['normal']; }
+    else { currentStateDescription = statesDescriptions['high']; }
 
     let progressColors = ['green', 'green', 'green', 'yellow', 'yellow', 'yellow', 'red', 'red', 'red']
     progressColors = progressColors.slice(0, Math.round((current/capacity)*9))
 
     return {
-      statesDescriptions: statesDescriptions, 
+      isFullDescription: current > 600 ? 'ANO' : 'NE',
+      currentStateDescription: currentStateDescription,
       current: current,
       progressColors: progressColors
     }

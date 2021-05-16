@@ -1,0 +1,38 @@
+version: '2.1'
+
+services:
+  app:
+    container_name: ikea_app
+    image: node:15
+    working_dir: /home/node/app
+    volumes:
+      - .:/home/node/app
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+    links:
+      - db
+    command: "npx nest start -w"
+    environment:
+      DB_NAME: ikea-dev
+      DB_USER: ikea
+      DB_PASS: pass
+
+  db:
+    container_name: ikea_db
+    image: postgres:13.3
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: ikea-dev
+      POSTGRES_USER: ikea
+      POSTGRES_PASSWORD: pass
+
+  adminer:
+    container_name: ikea_adminer
+    image: adminer:latest
+    links:
+      - db
+    ports:
+      - 9999:8080
