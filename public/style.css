@@ -28734,6 +28734,7 @@ html, body {
   transform: skewY(-9deg);
   position: relative;
   margin-bottom: 10%;
+  min-height: 30%;
 }
 
 .diagonal-box .ikea-bg {
@@ -28754,7 +28755,7 @@ html, body {
   background-color: #FBDA0C;
   top: 0;
   left: 0;
-  height: 25%;
+  height: 15%;
   width: 100%;
 }
 

@@ -6,6 +6,7 @@ export declare class AppController {
         isFullDescription: string;
         currentStateDescription: string;
         current: number;
-        progressColors: string[];
+        maxCapacity: number;
+        coloredPieces: number;
     }>;
 }

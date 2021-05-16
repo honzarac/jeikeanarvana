@@ -25,7 +25,7 @@ let AppController = class AppController {
             'high': 'ani tam nechoď, je tam kozy moc lidí'
         };
         const lastCapacityLog = await typeorm_1.getRepository(capacitylog_entity_1.CapacityLog).findOne({ order: { time: 'DESC' } });
-        const capacity = 1200;
+        const maxCapacity = 1200;
         const current = lastCapacityLog.capacity;
         let currentStateDescription = '';
         if (current < 400) {
@@ -37,13 +37,13 @@ let AppController = class AppController {
         else {
             currentStateDescription = statesDescriptions['high'];
         }
-        let progressColors = ['green', 'green', 'green', 'yellow', 'yellow', 'yellow', 'red', 'red', 'red'];
-        progressColors = progressColors.slice(0, Math.round((current / capacity) * 9));
+        let coloredPieces = Math.round((current / maxCapacity) * 9);
         return {
             isFullDescription: current > 600 ? 'ANO' : 'NE',
             currentStateDescription: currentStateDescription,
             current: current,
-            progressColors: progressColors
+            maxCapacity: maxCapacity,
+            coloredPieces: coloredPieces
         };
     }
 };
