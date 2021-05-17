@@ -33,7 +33,7 @@ export class AppController {
         .createQueryBuilder()
         .from(CapacityLog, 'capacity_log')
         .select('to_char(time, \'YY-MM-DD_HH24\') as date, round(avg(capacity)) as avg, max(capacity) as max, min(capacity) as min')
-        .where('DATE(time)=CURRENT_DATE')
+        .where('DATE(time) >= CURRENT_DATE - interval \'1 day\'')
         .groupBy('to_char(time, \'YY-MM-DD_HH24\')')
         .orderBy('to_char(time, \'YY-MM-DD_HH24\')', 'DESC')
         .limit(5)
