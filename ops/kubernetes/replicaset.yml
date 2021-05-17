@@ -31,10 +31,10 @@ spec:
               value: ikea
           resources:
             requests:
-              memory: 20Mi
-              cpu: 30m
+              memory: 128Mi
+              cpu: 100m
             limits:
-              memory: 50Mi
-              cpu: 30m
+              memory: 256Mi
+              cpu: 500m
       imagePullSecrets:
         - name: dockerhubcred
