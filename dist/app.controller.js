@@ -49,7 +49,6 @@ let AppController = class AppController {
             .limit(5)
             .getRawMany();
         return {
-            isFullDescription: current > 600 ? 'ANO' : 'NE',
             currentStateDescription: currentStateDescription,
             current: current,
             maxCapacity: maxCapacity,

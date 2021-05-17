@@ -4,6 +4,13 @@
     <meta charset="utf-8" />
     <title>Je IKEA narvaná?</title>
     <link href="/style.css" rel="stylesheet" type="text/css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="twitter:site" content="@honarac" />
+    <meta name="twitter:creator" content="@honarac" />
+    <meta property="og:url" content="https://jeikeanarvana.fun/" />
+    <meta property="og:title" content="Je IKEA v Brně narvaná?" />
+    <meta property="og:description" content="Kdy se vydat do IKEI? Čert ví, tady máš přehledně i v mobilu aktuální vytížení a víš, kdy si můžeš udělat svou domácnost skandivávštější." />
+    <meta property="og:image" content="https://jeikeanarvana.fun/ikea.jpg" />
   </head>
   <body>
     
@@ -15,7 +22,7 @@
 
     <div class="flex justify-center mb-24">
       <div class="text-center">
-          <div class="text-8xl">{{ isFullDescription }}</div>
+          <div class="text-8xl"><%= current > 600 ? 'ANO' : 'NE' %></div>
           {{ currentStateDescription }}
       </div>
     </div>
@@ -60,7 +67,7 @@
                 <div class="flex justify-center items-end">
                     <div class="grid grid-cols-{{capacityHistory.length}} w-full gap-x-4 h-80 items-end">
                         <% for(var i = capacityHistory.length-1; i >= 0; i--){ %>
-                            <div class="bg-red-500 rounded-lg w-full" style="height: <%= (capacityHistory[i].avg/maxCapacity)*100 %>%"> </div>
+                            <div class="bg-<%= (capacityHistory[i].avg/maxCapacity)*100 > 60 ? 'red' : ((capacityHistory[i].avg/maxCapacity)*100 > 30 ? 'yellow' : 'green') %>-500 rounded-lg w-full" style="height: <%= (capacityHistory[i].avg/maxCapacity)*100 %>%"> </div>
                         <% } %>
                     </div>
                 </div>
@@ -75,7 +82,7 @@
         </div>
     </div>
 
-  <div class="text-center p-12">© Honza Raclavský 2021</div>
+  <div class="text-center p-12">© VOX 2021</div>
 
   </body>
 </html>

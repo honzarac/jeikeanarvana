@@ -40,7 +40,6 @@ export class AppController {
         .getRawMany();
 
     return {
-      isFullDescription: current > 600 ? 'ANO' : 'NE',
       currentStateDescription: currentStateDescription,
       current: current,
       maxCapacity: maxCapacity,

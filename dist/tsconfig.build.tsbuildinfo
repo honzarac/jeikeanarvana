@@ -2837,8 +2837,8 @@
         "affectsGlobalScope": false
       },
       "../src/app.controller.ts": {
-        "version": "349730ee7f0228a8ae2513e066f0b608c044275bd408dccca72a4d009339e849",
-        "signature": "93cfd9e47877baf26361405ea2c4b2ad22baf6c996c8539690f985960f7e323f",
+        "version": "92afe80a83cb7f5d33df279af17b48f2370f7d56b5abf60eef160840cc5f2081",
+        "signature": "7a3290dc96eccd09d8491aee468f42890a24b5791a2bcbab50a245eb640744de",
         "affectsGlobalScope": false
       },
       "../node_modules/@nestjs/typeorm/dist/interfaces/entity-class-or-schema.type.d.ts": {

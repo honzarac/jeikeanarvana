@@ -26,9 +26,6 @@ spec:
   routes:
     - match: Host(`ikea.k8s.raclavsky.cz`)
       kind: Rule
-      middlewares:
-        - name: redirectscheme
-          namespace: traefik
       services:
         - name: ikea-service
           port: 80
@@ -39,7 +36,28 @@ spec:
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: nesnezeno-web-http-ingress-rule
+  name: jeikeanarvanafun-ingress-rule
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    certResolver: letsencrypt
+    domains:
+      - main: jeikeanarvana.fun
+  routes:
+    - match: Host(`jeikeanarvana.fun`)
+      kind: Rule
+      services:
+        - name: ikea-service
+          port: 80
+          scheme: http
+
+---
+
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ikea-http-ingress-rule
 spec:
   entryPoints:
     - web
