@@ -2836,9 +2836,19 @@
         "signature": "0a802e6729a663a0177ef3e3f76eee892f567bb5e98feb6390c00a82a704afb6",
         "affectsGlobalScope": false
       },
+      "../node_modules/color-blend/dist/types.d.ts": {
+        "version": "52642f2a17998a9e7a68b476ef7c0e517876d2c08ae1fbda865a935e3cca0973",
+        "signature": "52642f2a17998a9e7a68b476ef7c0e517876d2c08ae1fbda865a935e3cca0973",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/color-blend/dist/index.d.ts": {
+        "version": "b004e210a56b8e20e82ffeb1189121b34e4ef42bb45744de58b577af1ac2cbb9",
+        "signature": "b004e210a56b8e20e82ffeb1189121b34e4ef42bb45744de58b577af1ac2cbb9",
+        "affectsGlobalScope": false
+      },
       "../src/app.controller.ts": {
-        "version": "def1c4b9253619d69187862938a9a2be65b7a324ccb95d2995e432961a52b89c",
-        "signature": "7a3290dc96eccd09d8491aee468f42890a24b5791a2bcbab50a245eb640744de",
+        "version": "a367cb268b9bb20cc0e59f27fca28963aab8ace853c2ec3ad68ded73a2ac0512",
+        "signature": "82ca28a400588fb0731dadb9ec3eda706247fe8fdf1daa0b6251182d2e59d65b",
         "affectsGlobalScope": false
       },
       "../node_modules/@nestjs/typeorm/dist/interfaces/entity-class-or-schema.type.d.ts": {
@@ -5215,6 +5225,9 @@
       "../node_modules/@types/yargs/index.d.ts": [
         "../node_modules/@types/yargs-parser/index.d.ts"
       ],
+      "../node_modules/color-blend/dist/index.d.ts": [
+        "../node_modules/color-blend/dist/types.d.ts"
+      ],
       "../node_modules/jest-diff/build/diffLines.d.ts": [
         "../node_modules/jest-diff/build/cleanupSemantic.d.ts",
         "../node_modules/jest-diff/build/types.d.ts"
@@ -7256,6 +7269,7 @@
       ],
       "../src/app.controller.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/color-blend/dist/index.d.ts",
         "../node_modules/typeorm/index.d.ts",
         "../src/CapacityLog/capacitylog.entity.ts",
         "../src/app.service.ts"
@@ -8289,6 +8303,9 @@
       ],
       "../node_modules/@types/yargs/index.d.ts": [
         "../node_modules/@types/yargs-parser/index.d.ts"
+      ],
+      "../node_modules/color-blend/dist/index.d.ts": [
+        "../node_modules/color-blend/dist/types.d.ts"
       ],
       "../node_modules/jest-diff/build/diffLines.d.ts": [
         "../node_modules/jest-diff/build/cleanupSemantic.d.ts",
@@ -10626,6 +10643,8 @@
       "../node_modules/@types/yargs/index.d.ts",
       "../node_modules/@types/zen-observable/index.d.ts",
       "../node_modules/axios/index.d.ts",
+      "../node_modules/color-blend/dist/index.d.ts",
+      "../node_modules/color-blend/dist/types.d.ts",
       "../node_modules/jest-diff/build/cleanupSemantic.d.ts",
       "../node_modules/jest-diff/build/diffLines.d.ts",
       "../node_modules/jest-diff/build/index.d.ts",

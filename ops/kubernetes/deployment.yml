@@ -1,23 +1,22 @@
 apiVersion: apps/v1
-kind: ReplicaSet
+kind: Deployment
 metadata:
-  name: ikea-replicaset
+  name: ikea-deployment
   labels:
-    app: ikea-replicaset
+    app: ikea
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ikea-replicaset
+      app: ikea
   template:
     metadata:
       labels:
-        app: ikea-replicaset
-        service: ikea-service
+        app: ikea
     spec:
       containers:
         - name: ikea
-          image: voxfpd/ikea:latest
+          image: voxfpd/ikea:1.0.1
           ports:
             - containerPort: 3000
           env:

@@ -1,6 +1,6 @@
 {
   "name": "ikea",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "description": "",
   "author": "",
   "private": true,
@@ -26,6 +26,7 @@
     "@nestjs/platform-express": "^7.6.13",
     "@nestjs/schedule": "^0.4.3",
     "@nestjs/typeorm": "^7.1.5",
+    "color-blend": "^3.0.1",
     "onca": "^1.5.6",
     "pg": "^8.6.0",
     "postcss-import": "^14.0.2",

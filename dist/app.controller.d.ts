@@ -7,6 +7,8 @@ export declare class AppController {
         current: number;
         maxCapacity: number;
         coloredPieces: number;
+        capacityLastFiveHours: any[];
         capacityHistory: any[];
+        colorBlend: (capacity: number) => string;
     }>;
 }
