@@ -13,7 +13,11 @@ spec:
     metadata:
       labels:
         app: ikea
+  strategy:
+    type: RollingUpdate
     spec:
+      imagePullSecrets:
+        - name: dockerhubcred
       containers:
         - name: ikea
           image: voxfpd/ikea:1.0.1
@@ -35,5 +39,3 @@ spec:
             limits:
               memory: 256Mi
               cpu: 500m
-      imagePullSecrets:
-        - name: dockerhubcred

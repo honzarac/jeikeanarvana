@@ -1,0 +1,43 @@
+name: Build & push & deploy
+
+on:
+  push:
+    tags:
+      - '*'
+  workflow_dispatch:
+
+jobs:
+  buildPushDeploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 10
+
+      - name: Get tag
+        id: tag
+        uses: dawidd6/action-get-tag@v1
+
+      - name: Docker Login
+        uses: docker/login-action@v1.9.0
+        with:
+          username: voxfpd
+          password: ${{ secrets.DOCKERHUB_PASS }}
+
+      - name: Build docker image
+        run: docker build -t voxfpd/ikea:${{steps.tag.outputs.tag}} .
+
+      - name: Push docker image
+        run: docker push voxfpd/ikea:${{steps.tag.outputs.tag}}
+
+      - name: Login to Kubernetes
+        uses: matootie/dokube@v1.3.4
+        with:
+          personalAccessToken: ${{ secrets.DIGITALOCEAN_TOKEN }}
+          clusterName: voxcluster
+          expirationTime: 600
+          namespace: ikea
+
+      - name: Roll new deployment
+        run: kubectl apply -f ops/kubernetes/deployment.yml

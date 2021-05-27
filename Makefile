@@ -1,4 +1,6 @@
 build:
-	docker build -t voxfpd/ikea:${git describe --tags --abbrev=0} .
+	$(eval GIT_TAG=$(shell git describe --tags --abbrev=0))
+	docker build -t voxfpd/ikea:${GIT_TAG} .
 push:
-	docker push voxfpd/ikea:${git describe --tags --abbrev=0}
+	$(eval GIT_TAG=$(shell git describe --tags --abbrev=0))
+	docker push voxfpd/ikea:${GIT_TAG}
