@@ -13,8 +13,6 @@ spec:
     metadata:
       labels:
         app: ikea
-  strategy:
-    type: RollingUpdate
     spec:
       imagePullSecrets:
         - name: dockerhubcred

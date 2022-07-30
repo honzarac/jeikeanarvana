@@ -101,8 +101,8 @@
             <div class="p-12">
                 <div class="flex mx-auto m-2 w-full md:w-3/4 lg:w-8/12 justify-between">
                     <div class="w-4"> </div>
-                    <% for (let hour = 9; hour < 21; hour+=3) { %>
-                        <div class="">{{ hour }}-{{hour+3}}</div>
+                    <% for (let hour = 9; hour <= 21; hour+=2) { %>
+                        <div class="">{{ hour }}-{{hour+1}}</div>
                     <% } %>
                 </div>
                 <% let weekdays = {MON: 'PO', TUE: 'ÚT', WED: 'ST', THU: 'ČT', FRI: 'PÁ', SAT: 'SO', SUN: 'NE'}; %>
@@ -113,10 +113,13 @@
                 {{each capacityHistory}}
                     <div class="flex mx-auto m-2 w-full md:w-3/4 lg:w-8/12 justify-between">
                         <div class="w-3">{{ weekdays[capacityHistory[$index].weekday] }}</div>
-                        <div title="V tomto čase bývá průměrná vytíženost kolem {{$imports.parseInt(capacityHistory[$index].cap9_12)}} lidí"   class="w-6 h-6 rounded-md" style="{{capColor(capacityHistory[$index].cap9_12)}}"> </div>
-                        <div title="V tomto čase bývá průměrná vytíženost kolem {{$imports.parseInt(capacityHistory[$index].cap12_15)}} lidí" class="w-6 h-6 rounded-md" style="{{capColor(capacityHistory[$index].cap12_15)}}"> </div>
-                        <div title="V tomto čase bývá průměrná vytíženost kolem {{$imports.parseInt(capacityHistory[$index].cap15_18)}} lidí" class="w-6 h-6 rounded-md" style="{{capColor(capacityHistory[$index].cap15_18)}}"> </div>
-                        <div title="V tomto čase bývá průměrná vytíženost kolem {{$imports.parseInt(capacityHistory[$index].cap18_21)}} lidí" class="w-6 h-6 rounded-md" style="{{capColor(capacityHistory[$index].cap18_21)}}"> </div>
+                        <div title="V tomto čase bývá průměrná vytíženost kolem {{$imports.parseInt(capacityHistory[$index].cap9_10)}} lidí" class="w-6 h-6 rounded-md" style="{{capColor(capacityHistory[$index].cap9_10)}}"> </div>
+                        <div title="V tomto čase bývá průměrná vytíženost kolem {{$imports.parseInt(capacityHistory[$index].cap10_11)}} lidí" class="w-6 h-6 rounded-md" style="{{capColor(capacityHistory[$index].cap10_11)}}"> </div>
+                        <div title="V tomto čase bývá průměrná vytíženost kolem {{$imports.parseInt(capacityHistory[$index].cap12_13)}} lidí" class="w-6 h-6 rounded-md" style="{{capColor(capacityHistory[$index].cap12_13)}}"> </div>
+                        <div title="V tomto čase bývá průměrná vytíženost kolem {{$imports.parseInt(capacityHistory[$index].cap14_15)}} lidí" class="w-6 h-6 rounded-md" style="{{capColor(capacityHistory[$index].cap14_15)}}"> </div>
+                        <div title="V tomto čase bývá průměrná vytíženost kolem {{$imports.parseInt(capacityHistory[$index].cap16_17)}} lidí" class="w-6 h-6 rounded-md" style="{{capColor(capacityHistory[$index].cap16_17)}}"> </div>
+                        <div title="V tomto čase bývá průměrná vytíženost kolem {{$imports.parseInt(capacityHistory[$index].cap18_19)}} lidí" class="w-6 h-6 rounded-md" style="{{capColor(capacityHistory[$index].cap18_19)}}"> </div>
+                        <div title="V tomto čase bývá průměrná vytíženost kolem {{$imports.parseInt(capacityHistory[$index].cap20_21)}} lidí" class="w-6 h-6 rounded-md" style="{{capColor(capacityHistory[$index].cap20_21)}}"> </div>
                     </div>
                 {{/each}}
             </div>

@@ -44,10 +44,14 @@ export class AppController {
         .createQueryBuilder()
         .from(CapacityLog, 'capacity_log')
         .select('to_char(time, \'DY\') as weekday,\n' +
-            'avg(case when to_char(time, \'HH24\')::integer < 12 then capacity else null end) as cap9_12,\n' +
-            'avg(case when to_char(time, \'HH24\')::integer >= 12 and to_char(time, \'HH24\')::integer < 15 then capacity else null end) as cap12_15,\n' +
-            'avg(case when to_char(time, \'HH24\')::integer >= 15 and to_char(time, \'HH24\')::integer < 18 then capacity else null end) as cap15_18,\n' +
-            'avg(case when to_char(time, \'HH24\')::integer >= 18 and to_char(time, \'HH24\')::integer < 21 then capacity else null end) as cap18_21')
+            'avg(case when to_char(time, \'HH24\')::integer < 10 then capacity else null end) as cap9_10,\n' +
+            'avg(case when to_char(time, \'HH24\')::integer >= 10 and to_char(time, \'HH24\')::integer <= 11 then capacity else null end) as cap10_11,\n' +
+            'avg(case when to_char(time, \'HH24\')::integer >= 12 and to_char(time, \'HH24\')::integer <= 13 then capacity else null end) as cap12_13,\n' +
+            'avg(case when to_char(time, \'HH24\')::integer >= 14 and to_char(time, \'HH24\')::integer <= 15 then capacity else null end) as cap14_15,\n' +
+            'avg(case when to_char(time, \'HH24\')::integer >= 16 and to_char(time, \'HH24\')::integer <= 17 then capacity else null end) as cap16_17,\n' +
+            'avg(case when to_char(time, \'HH24\')::integer >= 18 and to_char(time, \'HH24\')::integer <= 19 then capacity else null end) as cap18_19,\n' +
+            'avg(case when to_char(time, \'HH24\')::integer >= 20 and to_char(time, \'HH24\')::integer <= 21 then capacity else null end) as cap20_21 \n'
+        )
         .groupBy('to_char(time, \'DY\')')
         .orderBy('CASE WHEN to_char(max(time), \'D\') = \'1\' THEN 8 ELSE to_char(max(time), \'D\')::integer END', 'ASC')
         .getRawMany();

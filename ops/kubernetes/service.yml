@@ -15,35 +15,12 @@ spec:
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: ikea-ingress-rule
-spec:
-  entryPoints:
-    - websecure
-  tls:
-    certResolver: letsencrypt
-    domains:
-      - main: ikea.k8s.raclavsky.cz
-  routes:
-    - match: Host(`ikea.k8s.raclavsky.cz`)
-      kind: Rule
-      services:
-        - name: ikea-service
-          port: 80
-          scheme: http
-
----
-
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
-metadata:
   name: jeikeanarvanafun-ingress-rule
 spec:
   entryPoints:
     - websecure
   tls:
-    certResolver: letsencrypt
-    domains:
-      - main: jeikeanarvana.fun
+    secretName: ikea-cert-secret
   routes:
     - match: Host(`jeikeanarvana.fun`)
       kind: Rule
